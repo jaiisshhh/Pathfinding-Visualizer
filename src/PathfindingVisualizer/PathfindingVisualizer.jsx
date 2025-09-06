@@ -8,6 +8,8 @@ import { recursiveDivisionMaze } from "../mazeAlgo/recursiveDivision";
 import { recursiveDivisionMazeSkew } from "../mazeAlgo/recursiveDivisionSkew";
 import { basicRandomMaze } from "../mazeAlgo/basicRandomMaze";
 
+import Tutorial from "./Tutorial";
+
 import "./PathfindingVisualizer.css";
 
 const START_NODE_ROW = 10;
@@ -34,9 +36,15 @@ export default class PathfindingVisualizer extends Component {
   }
 
   componentDidMount() {
-    const grid = getInitialGrid();
-    this.setState({ grid });
-  }
+  const grid = getInitialGrid();
+  this.setState({ grid });
+
+  this.setState({ showTutorial: true });
+}
+
+  closeTutorial = () => {
+    this.setState({ showTutorial: false });
+  };
 
   handleMouseDown(row, col) {
     const { grid } = this.state;
@@ -267,7 +275,8 @@ export default class PathfindingVisualizer extends Component {
       nodesInShortestPathOrder[nodesInShortestPathOrder.length - 2];
     if (lastPathNode) {
       // Schedule this cleanup to run right after the last arrow is drawn
-      const cleanupTimeout = this.state.animationSpeed * 5 * (nodesInShortestPathOrder.length - 1);
+      const cleanupTimeout =
+        this.state.animationSpeed * 5 * (nodesInShortestPathOrder.length - 1);
       setTimeout(() => {
         const lastElement = document.getElementById(
           `node-${lastPathNode.row}-${lastPathNode.col}`
@@ -323,10 +332,12 @@ export default class PathfindingVisualizer extends Component {
   };
 
   render() {
-    const { grid, mouseIsPressed } = this.state;
+    const { grid, mouseIsPressed, showTutorial } = this.state;
 
     return (
       <>
+        {showTutorial && <Tutorial closeTutorial={this.closeTutorial} />}
+
         <nav className="navbar">
           {/* Navbar content remains the same */}
           <div className="navbar-left">

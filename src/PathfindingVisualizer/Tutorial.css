@@ -1,0 +1,176 @@
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: hsl(var(--background) / 0.8);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.tutorial-content {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  padding: 30px;
+  border-radius: 12px;
+  
+  /* --- NEW 3D SHADOW & BORDER --- */
+  border: 1px solid hsl(var(--border)); /* A simple border for definition */
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4); /* The new 3D shadow */
+
+  width: 66%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.tutorial-content h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: hsl(var(--primary));
+  font-weight: 600;
+}
+
+.tutorial-content h3 {
+  margin-top: 25px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid hsl(var(--border));
+  padding-bottom: 5px;
+  color: hsl(var(--foreground));
+}
+
+.tutorial-content p, .tutorial-content ul {
+  line-height: 1.6;
+  color: hsl(var(--muted-foreground));
+}
+
+.tutorial-content ul {
+  list-style-position: inside;
+  padding-left: 10px;
+}
+
+.tutorial-content ul li strong {
+  color: hsl(var(--foreground));
+}
+
+/* LEGEND SECTION */
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.legend-item img {
+  width: 25px;
+  height: 25px;
+}
+
+.legend-node {
+  width: 25px;
+  height: 25px;
+  border: 1px solid #495057;
+}
+
+.wall-node { background-color: #343a40; }
+.visited-node { background: linear-gradient(90deg, #bd93f9, #58a6ff); }
+.path-node { background-color: #10b981; }
+/* END OF LEGEND SECTION */
+
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: hsl(var(--muted-foreground));
+  font-size: 28px;
+  cursor: pointer;
+  
+  /* --- ADD THESE --- */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Make it a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.close-btn:hover {
+  color: hsl(var(--foreground));
+  
+  /* --- ADD THIS --- */
+  background-color: rgba(128, 128, 128, 0.15); /* Adds a subtle background */
+}
+
+/* --- ENHANCED GET STARTED BUTTON --- */
+.start-btn {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 32px;
+  background-image: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  border-radius: 999px;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 15px rgba(118, 75, 162, 0.4);
+}
+
+.start-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(118, 75, 162, 0.6);
+}
+
+/* --- NEW EXIT ANIMATION --- */
+
+/* This class will be added to trigger the exit animation */
+.tutorial-overlay.closing {
+  animation: fadeOut 0.4s ease-in forwards;
+}
+
+.tutorial-overlay.closing .tutorial-content {
+  animation: zoomOut 0.4s ease-in forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes zoomOut {
+  from { 
+    transform: scale(1);
+    opacity: 1; 
+  }
+  to { 
+    transform: scale(1.5); /* Rushes towards the user */
+    opacity: 0; 
+  }
+}

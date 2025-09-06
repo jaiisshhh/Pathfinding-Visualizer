@@ -1,0 +1,269 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap");
+
+:root {
+  /* Light theme colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+
+  /* Accent colors (kept from your theme, they work well) */
+  --accent-blue: #007bff;
+  --accent-purple: #8a2be2;
+  --accent-green: #28a745;
+  --accent-yellow: #ffc107;
+  --accent-orange: #fd7e14;
+
+  /* A dark, clear wall color for contrast */
+  --wall-color: #343a40;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid #dee2e6; /* Light gray border */
+  padding: 12px 24px;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-left h2 {
+  font-family: "Google Sans Code", sans-serif; /* Use the new font */
+  font-size: 34px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Dropdown Styling for Light Mode */
+.dropdown {
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  
+  /* Use light theme background and border */
+  background: var(--bg-primary); 
+  border: 1px solid #CED4DA; 
+  border-radius: 8px;
+  
+  /* Use dark text for readability */
+  color: var(--text-primary); 
+  
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  min-width: 120px;
+}
+
+.dropdown:hover {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.2); /* Use a blue shadow for hover */
+  transform: translateY(-2px);
+}
+
+.dropdown:focus {
+  border-color: var(--accent-purple);
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.3); /* Use a purple shadow for focus */
+}
+
+/* This is the key fix for the inner dropdown */
+.dropdown option {
+  background: var(--bg-primary); /* Set a white background */
+  color: var(--text-primary);     /* Set dark text */
+  padding: 8px;
+}
+
+/* Button Styling */
+.btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.btn:focus {
+  /* First, remove the default browser outline which can look clunky */
+  outline: none;
+
+  /* Apply a glowing shadow using your accent blue color */
+  box-shadow: 0 0 15px rgba(88, 166, 255, 0.5);
+
+  /* You can also add the transform here for consistent feedback */
+  transform: translateY(-2px);
+}
+
+/* Specific button colors */
+.btn.visualize-btn {
+  background-color: var(--accent-blue);
+}
+.btn.clear-walls-btn {
+  background-color: var(--accent-orange);
+}
+.btn.learn-btn {
+  background-color: var(--accent-purple);
+}
+
+/* Grid Container */
+.grid-container {
+  display: flex;
+  justify-content: center;
+  padding-top: 40px;
+}
+
+.grid {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #dee2e6; /* Light gray grid lines */
+  border-bottom: 1px solid #dee2e6;
+}
+
+.grid-row {
+  display: flex;
+  line-height: 0;
+}
+
+/* --- Node Styling --- */
+.node {
+  width: 25px;
+  height: 25px;
+  border-top: 1px solid #dee2e6; /* Light gray grid lines */
+  border-left: 1px solid #dee2e6;
+  box-sizing: border-box;
+}
+
+/* Node States */
+.node-start {
+  /* Use the start.png image from your public folder */
+  background-image: url('/public/start.png');
+  background-size: contain; /* Ensures the whole image is visible */
+  background-repeat: no-repeat; /* Prevents the image from tiling */
+  background-position: center; /* Centers the image in the node */
+}
+.node-finish {
+  /* Use the end.png image from your public folder */
+  background-image: url('/public/end.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.node-wall {
+  background-color: var(--wall-color);
+  animation: wallDrop 0.3s ease;
+}
+
+.node-visited {
+  animation-name: visitedAnimation;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.node-shortest-path {
+  animation-name: shortestPath;
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+.node-path-up,
+.node-path-down,
+.node-path-left,
+.node-path-right {
+  background-size: contain; /* Make sure the arrow fits */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Link each class to the correct image in your public folder */
+.node-path-up { background-image: url('/public/up.png'); }
+.node-path-down { background-image: url('/public/down.png'); }
+.node-path-left { background-image: url('/public/left.png'); }
+.node-path-right { background-image: url('/public/right.png'); }
+
+/* --- LIGHT MODE ANIMATIONS --- */
+@keyframes visitedAnimation {
+  0% {
+    transform: scale(0.3);
+    background-color: #58a6ff; /* Start with solid purple */
+    border-radius: 100%;
+  }
+  50% {
+    background-color: #58a6ff; /* A color midway between purple and blue */
+  }
+  75% {
+    transform: scale(1.2);
+    background-color: #8D98DF; 
+  }
+  100% {
+    transform: scale(1);
+    background-color: #bd93f9; /* End with solid blue */
+  }
+}
+
+@keyframes shortestPath {
+  0% {
+    transform: scale(0.6);
+    background-color: #a7f3d0; /* Start with a soft mint color */
+  }
+  50% {
+    transform: scale(1.2);
+    background-color: #34d399; /* A rich, medium green */
+  }
+  100% {
+    transform: scale(1);
+    background-color: #10b981; /* Settle on a deep, vibrant emerald */
+  }
+}
+
+@keyframes wallDrop {
+  from {
+    transform: scale(0.5);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Footer */
+.footer {
+  background: var(--bg-secondary);
+  border-top: 1px solid #dee2e6;
+  color: var(--text-secondary);
+  padding: 16px;
+  text-align: center;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
